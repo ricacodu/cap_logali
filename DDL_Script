@@ -1,6 +1,10 @@
 
 CREATE TABLE com_master_logali_HeadersOrders (
   ID NVARCHAR(36) NOT NULL,
+  createdAt TIMESTAMP_TEXT,
+  createdBy NVARCHAR(255),
+  modifiedAt TIMESTAMP_TEXT,
+  modifiedBy NVARCHAR(255),
   EMAIL NVARCHAR(5000) NOT NULL,
   FIRSTNAME NVARCHAR(5000),
   LASTNAME NVARCHAR(5000),
@@ -13,8 +17,11 @@ CREATE TABLE com_master_logali_HeadersOrders (
 );
 
 CREATE TABLE com_master_logali_ItemsOrders (
-  ID_HEADER NVARCHAR(36) NOT NULL,
   ID NVARCHAR(36) NOT NULL,
+  createdAt TIMESTAMP_TEXT,
+  createdBy NVARCHAR(255),
+  modifiedAt TIMESTAMP_TEXT,
+  modifiedBy NVARCHAR(255),
   NAME NVARCHAR(5000),
   DESCRIPTION NVARCHAR(5000),
   RELEASEDATE DATE_TEXT,
@@ -25,6 +32,130 @@ CREATE TABLE com_master_logali_ItemsOrders (
   DEPTH DECIMAL(12, 2),
   QUANTITY DECIMAL(16, 2),
   UNITOFMEASURE NVARCHAR(10),
-  PRIMARY KEY(ID_HEADER, ID)
+  ID_HEADER NVARCHAR(36) NOT NULL,
+  PRIMARY KEY(ID, ID_HEADER)
 );
+
+CREATE TABLE com_master_logali_HeadersOrders_texts (
+  locale NVARCHAR(14) NOT NULL,
+  ID NVARCHAR(36) NOT NULL,
+  EMAIL NVARCHAR(5000) NOT NULL,
+  FIRSTNAME NVARCHAR(5000),
+  LASTNAME NVARCHAR(5000),
+  PRIMARY KEY(locale, ID, EMAIL)
+);
+
+CREATE TABLE com_master_logali_ItemsOrders_texts (
+  locale NVARCHAR(14) NOT NULL,
+  ID NVARCHAR(36) NOT NULL,
+  NAME NVARCHAR(5000),
+  DESCRIPTION NVARCHAR(5000),
+  ID_HEADER NVARCHAR(36) NOT NULL,
+  PRIMARY KEY(locale, ID, ID_HEADER)
+);
+
+CREATE VIEW localized_com_master_logali_HeadersOrders AS SELECT
+  L_0.ID,
+  L_0.createdAt,
+  L_0.createdBy,
+  L_0.modifiedAt,
+  L_0.modifiedBy,
+  L_0.EMAIL,
+  coalesce(localized_1.FIRSTNAME, L_0.FIRSTNAME) AS FIRSTNAME,
+  coalesce(localized_1.LASTNAME, L_0.LASTNAME) AS LASTNAME,
+  L_0.COUNTRY,
+  L_0.CREATEON,
+  L_0.DELIVERYDATE,
+  L_0.ORDERSTATUS,
+  L_0.IMAGEURL
+FROM (com_master_logali_HeadersOrders AS L_0 LEFT JOIN com_master_logali_HeadersOrders_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.EMAIL = L_0.EMAIL AND localized_1.locale = 'en');
+
+CREATE VIEW localized_com_master_logali_ItemsOrders AS SELECT
+  L_0.ID,
+  L_0.createdAt,
+  L_0.createdBy,
+  L_0.modifiedAt,
+  L_0.modifiedBy,
+  coalesce(localized_1.NAME, L_0.NAME) AS NAME,
+  coalesce(localized_1.DESCRIPTION, L_0.DESCRIPTION) AS DESCRIPTION,
+  L_0.RELEASEDATE,
+  L_0.DISCONTINUEDDATE,
+  L_0.PRICE,
+  L_0.HEIGHT,
+  L_0.WIDTH,
+  L_0.DEPTH,
+  L_0.QUANTITY,
+  L_0.UNITOFMEASURE,
+  L_0.ID_HEADER
+FROM (com_master_logali_ItemsOrders AS L_0 LEFT JOIN com_master_logali_ItemsOrders_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.ID_HEADER = L_0.ID_HEADER AND localized_1.locale = 'en');
+
+CREATE VIEW localized_de_com_master_logali_HeadersOrders AS SELECT
+  L_0.ID,
+  L_0.createdAt,
+  L_0.createdBy,
+  L_0.modifiedAt,
+  L_0.modifiedBy,
+  L_0.EMAIL,
+  coalesce(localized_de_1.FIRSTNAME, L_0.FIRSTNAME) AS FIRSTNAME,
+  coalesce(localized_de_1.LASTNAME, L_0.LASTNAME) AS LASTNAME,
+  L_0.COUNTRY,
+  L_0.CREATEON,
+  L_0.DELIVERYDATE,
+  L_0.ORDERSTATUS,
+  L_0.IMAGEURL
+FROM (com_master_logali_HeadersOrders AS L_0 LEFT JOIN com_master_logali_HeadersOrders_texts AS localized_de_1 ON localized_de_1.ID = L_0.ID AND localized_de_1.EMAIL = L_0.EMAIL AND localized_de_1.locale = 'de');
+
+CREATE VIEW localized_fr_com_master_logali_HeadersOrders AS SELECT
+  L_0.ID,
+  L_0.createdAt,
+  L_0.createdBy,
+  L_0.modifiedAt,
+  L_0.modifiedBy,
+  L_0.EMAIL,
+  coalesce(localized_fr_1.FIRSTNAME, L_0.FIRSTNAME) AS FIRSTNAME,
+  coalesce(localized_fr_1.LASTNAME, L_0.LASTNAME) AS LASTNAME,
+  L_0.COUNTRY,
+  L_0.CREATEON,
+  L_0.DELIVERYDATE,
+  L_0.ORDERSTATUS,
+  L_0.IMAGEURL
+FROM (com_master_logali_HeadersOrders AS L_0 LEFT JOIN com_master_logali_HeadersOrders_texts AS localized_fr_1 ON localized_fr_1.ID = L_0.ID AND localized_fr_1.EMAIL = L_0.EMAIL AND localized_fr_1.locale = 'fr');
+
+CREATE VIEW localized_de_com_master_logali_ItemsOrders AS SELECT
+  L_0.ID,
+  L_0.createdAt,
+  L_0.createdBy,
+  L_0.modifiedAt,
+  L_0.modifiedBy,
+  coalesce(localized_de_1.NAME, L_0.NAME) AS NAME,
+  coalesce(localized_de_1.DESCRIPTION, L_0.DESCRIPTION) AS DESCRIPTION,
+  L_0.RELEASEDATE,
+  L_0.DISCONTINUEDDATE,
+  L_0.PRICE,
+  L_0.HEIGHT,
+  L_0.WIDTH,
+  L_0.DEPTH,
+  L_0.QUANTITY,
+  L_0.UNITOFMEASURE,
+  L_0.ID_HEADER
+FROM (com_master_logali_ItemsOrders AS L_0 LEFT JOIN com_master_logali_ItemsOrders_texts AS localized_de_1 ON localized_de_1.ID = L_0.ID AND localized_de_1.ID_HEADER = L_0.ID_HEADER AND localized_de_1.locale = 'de');
+
+CREATE VIEW localized_fr_com_master_logali_ItemsOrders AS SELECT
+  L_0.ID,
+  L_0.createdAt,
+  L_0.createdBy,
+  L_0.modifiedAt,
+  L_0.modifiedBy,
+  coalesce(localized_fr_1.NAME, L_0.NAME) AS NAME,
+  coalesce(localized_fr_1.DESCRIPTION, L_0.DESCRIPTION) AS DESCRIPTION,
+  L_0.RELEASEDATE,
+  L_0.DISCONTINUEDDATE,
+  L_0.PRICE,
+  L_0.HEIGHT,
+  L_0.WIDTH,
+  L_0.DEPTH,
+  L_0.QUANTITY,
+  L_0.UNITOFMEASURE,
+  L_0.ID_HEADER
+FROM (com_master_logali_ItemsOrders AS L_0 LEFT JOIN com_master_logali_ItemsOrders_texts AS localized_fr_1 ON localized_fr_1.ID = L_0.ID AND localized_fr_1.ID_HEADER = L_0.ID_HEADER AND localized_fr_1.locale = 'fr');
 
