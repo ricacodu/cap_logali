@@ -11,7 +11,7 @@ context Orders {
 
     entity HeadersOrders : cuid, managed {
             //key ID           : UUID;
-        key EMAIL        : String;
+        key EMAIL        : String @odata.Type:'Edm.String';
             FIRSTNAME    : localized String;
             LASTNAME     : localized String;
             COUNTRY      : String;

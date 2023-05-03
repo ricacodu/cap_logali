@@ -38,3 +38,13 @@ define service CatalogSelectService {
             TO_HEADER        as ToHeader,
         };
 }
+
+define service Querys {
+
+    entity OrderByEmail as
+        select from logali.Orders.HeadersOrders[EMAIL = 'anibal@gmail.com']{
+          FIRSTNAME,
+          COUNTRY
+        }
+
+}

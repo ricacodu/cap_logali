@@ -1,0 +1,20 @@
+### Get Orders
+GET http://localhost:4004/manage-orders/Orders
+
+### Get Order
+GET http://localhost:4004/manage-orders/Orders?$filter=EMAIL eq 'rosa@gmail.com'
+
+### Create Order
+POST http://localhost:4004/manage-orders/Orders HTTP/1.1
+Content-Type: application/json
+
+{
+    "EMAIL": "lorena@gmail.com",
+    "FIRSTNAME": "Lorena",
+    "LASTNAME": "Garcia",
+    "COUNTRY" : "Colombia",
+    "CREATEON" : "2024-10-10",
+    "DELIVERYDATE" : "2023-05-03T16:22:01.507Z",
+    "ORDERSTATUS" : 5,
+    "IMAGEURL" : "/product/webapp/assets/oro.jpg"
+}
