@@ -59,4 +59,56 @@ module.exports = (srv) => {
     return req;
   });
 
+  //*******************UPDATE*************************/
+  srv.on("UPDATE", "Orders", async (req) => {
+    let returnData = await cds
+      .transaction(req)
+      .run([
+        UPDATE(Orders, req.data.EMAIL).set({
+          FIRSTNAME: req.data.FIRSTNAME,
+          LASTNAME: req.data.LASTNAME,
+        }),
+      ])
+      .then((resolve, reject) => {
+        console.log("Resolve: ", resolve);
+        console.log("Reject: ", reject);
+
+        if (resolve[0] == 0) {
+          req.error(409, "Record Not Found");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        req.error(err.code, err.message);
+      });
+    console.log("Before End", returnData);
+    return returnData;
+  });
+
+  //**********************DELETE*************************/
+  srv.on("DELETE", "Orders", async (req) => {
+    let returnData = await cds
+      .transaction(req)
+      .run(
+        DELETE.from(Orders).where({
+          EMAIL: req.data.EMAIL,
+        })
+      )
+      .then((resolve, reject) => {
+        console.log("Resolve", resolve);
+        console.log("Reject", reject);
+
+        if (resolve !== 1) {
+          req.error(409, "Record Not Found");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        req.error(err.code, err.message);
+      });
+    console.log("Before End", returnData);
+    return await returnData;
+  });
+
+
 };

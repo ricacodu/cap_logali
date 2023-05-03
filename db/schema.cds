@@ -9,8 +9,7 @@ type meins : String(10);
 
 context Orders {
 
-    entity HeadersOrders : cuid, managed {
-            //key ID           : UUID;
+    entity HeadersOrders :  managed {
         key EMAIL        : String @odata.Type:'Edm.String';
             FIRSTNAME    : localized String;
             LASTNAME     : localized String;
@@ -22,7 +21,7 @@ context Orders {
     };
 
     entity ItemsOrders : cuid, managed {
-            //key ID               : UUID;
+        key EMAIL_HEADER     : String;
             NAME             : localized String;
             DESCRIPTION      : localized String;
             RELEASEDATE      : Date;
@@ -33,9 +32,8 @@ context Orders {
             DEPTH            : Decimal(12, 2);
             QUANTITY         : Decimal(16, 2);
             UNITOFMEASURE    : meins;
-        key ID_HEADER        : UUID;
             TO_HEADER        : Association to one HeadersOrders
-                                   on TO_HEADER.ID = ID_HEADER;
+                                   on TO_HEADER.EMAIL = EMAIL_HEADER;
     }
 
 }

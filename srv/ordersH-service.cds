@@ -9,7 +9,6 @@ define service CatalogSelectService {
 
     entity HeadersOrdersSrv as
         select from logali.Orders.HeadersOrders {
-            ID,
             EMAIL        as Email     @mandatory,
             FIRSTNAME    as FirstName @mandatory,
             LASTNAME     as LastName,
@@ -34,7 +33,7 @@ define service CatalogSelectService {
             DEPTH            as Depth,
             QUANTITY         as Quantity,
             UNITOFMEASURE    as UnitOfMeasure,
-            ID_HEADER        as IdHeader,
+            EMAIL_HEADER     as IdHeader,
             TO_HEADER        as ToHeader,
         };
 }

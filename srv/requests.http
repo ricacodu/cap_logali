@@ -18,3 +18,15 @@ Content-Type: application/json
     "ORDERSTATUS" : 5,
     "IMAGEURL" : "/product/webapp/assets/oro.jpg"
 }
+
+### Update Order
+PATCH http://localhost:4004/manage-orders/Orders(EMAIL='rosa@gmail.com') HTTP/1.1
+Content-Type: application/json
+
+{
+    "FIRSTNAME": "Rosa Updated",
+    "LASTNAME": "Gaviria Updated"
+}
+
+###Delete Order
+DELETE http://localhost:4004/manage-orders/Orders(EMAIL='rosa@gmail.com')
