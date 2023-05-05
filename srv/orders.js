@@ -65,8 +65,12 @@ module.exports = (srv) => {
       .transaction(req)
       .run([
         UPDATE(Orders, req.data.EMAIL).set({
+          EMAIL:   req.data.EMAIL,
           FIRSTNAME: req.data.FIRSTNAME,
           LASTNAME: req.data.LASTNAME,
+          COUNTRY: req.data.COUNTRY,
+          DELIVERYDATE: req.data.DELIVERYDATE,
+          ORDERSTATUS: req.data.ORDERSTATUS,
         }),
       ])
       .then((resolve, reject) => {

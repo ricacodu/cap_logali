@@ -16,7 +16,8 @@ define service CatalogSelectService {
             CREATEON     as CreateOn,
             DELIVERYDATE as DeliveryDate,
             ORDERSTATUS  as OrderStatus,
-            IMAGEURL     as ImageUrl
+            IMAGEURL     as ImageUrl,
+            ITEMS        as ToItems
         };
 
     @readonly
@@ -34,7 +35,7 @@ define service CatalogSelectService {
             QUANTITY         as Quantity,
             UNITOFMEASURE    as UnitOfMeasure,
             EMAIL_HEADER     as IdHeader,
-            TO_HEADER        as ToHeader,
+            HEADER           as ToHeader,
         };
 }
 

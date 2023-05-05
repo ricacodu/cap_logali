@@ -18,6 +18,9 @@ context Orders {
             DELIVERYDATE : DateTime;
             ORDERSTATUS  : Integer;
             IMAGEURL     : String;
+            ITEMS        : Association to many ItemsOrders
+                               on ITEMS.HEADER = $self;
+
     };
 
     entity ItemsOrders : cuid, managed {
@@ -32,8 +35,7 @@ context Orders {
             DEPTH            : Decimal(12, 2);
             QUANTITY         : Decimal(16, 2);
             UNITOFMEASURE    : meins;
-            TO_HEADER        : Association to one HeadersOrders
-                                   on TO_HEADER.EMAIL = EMAIL_HEADER;
+            HEADER           : Association to one HeadersOrders;
     }
 
 }
